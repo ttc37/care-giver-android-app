@@ -1,0 +1,50 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "AdminUser",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::caregiver-android",
+                "arn:aws:s3:::caregiver-android/*"
+            ],
+            "Condition": {
+                "IpAddress": {
+                    "aws:SourceIp": "73.81.231.206"
+                }
+            }
+        },
+        {
+            "Sid": "ListYourObjects",
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "cognito-identity.amazonaws.com"
+            },
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::caregiver-android",
+            "Condition": {
+                "StringLike": {
+                    "s3:prefix": "cognito/caregiver/${cognito-identity.amazonaws.com:sub}"
+                }
+            }
+        },
+        {
+            "Sid": "ReadWriteDeleteYourObjects",
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "cognito-identity.amazonaws.com"
+            },
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::caregiver-android/cognito/caregiver/${cognito-identity.amazonaws.com:sub}",
+                "arn:aws:s3:::caregiver-android/cognito/caregiver/${cognito-identity.amazonaws.com:sub}/*"
+            ]
+        }
+    ]
+}

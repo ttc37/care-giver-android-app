@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Caregiver",
+    "slug": "Caregiver",
+    "icon": "./caregiver-logo.png",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.tihor29.caregiver",
+      "versionCode": 1
+    }
+  }
+}
